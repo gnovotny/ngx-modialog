@@ -80,10 +80,13 @@ export class Modal extends Modal_ {
       backdrop.removeClass(animationClass);
       container.removeClass(animationClass);
 
+      isDoc && this.overlay.groupStackLength(dialogRef) === 1 && document.body.classList.remove('modal-open');
+      completer.resolve();
+
       combineLatest.call(backdrop.myAnimationEnd$(), container.myAnimationEnd$(), (s1, s2) => [s1,s2])
         .subscribe( sources => {
-          isDoc && this.overlay.groupStackLength(dialogRef) === 1 && document.body.classList.remove('modal-open');
-          completer.resolve();
+          // isDoc && this.overlay.groupStackLength(dialogRef) === 1 && document.body.classList.remove('modal-open');
+          // completer.resolve();
         });
 
       return completer.promise;
